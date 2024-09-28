@@ -1,0 +1,6 @@
+<li id="<%= dom_id post %>" class="py-8">
+  <div class="relative overflow-hidden rounded-md border border-gray-300">
+    <%= image_tag url_for(post.image), class: "w-full h-full object-center" %>
+  </div>
+  <p class="text-slate-800 mt-3"><%= post.caption %></p>
+</li>

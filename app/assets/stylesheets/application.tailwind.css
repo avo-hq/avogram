@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.story-avatar {
+  border-radius: 50%;
+  background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+}

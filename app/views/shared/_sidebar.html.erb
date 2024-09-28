@@ -1,0 +1,69 @@
+<nav class="h-full flex-shrink-0 fixed inset-0 border-r border-gray-300 w-[250px] px-2">
+  <header class="py-10 px-4">
+    <%= link_to image_tag("logo.svg", class: "w-3/4"), root_path %>
+  </header>
+  <ul class="space-y-2">
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <%= link_to root_path do %>
+        <i class="far fa-home text-lg w-6"></i>
+        <span>Home</span>
+      <% end %>
+    </li>
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <div class="far fa-search text-lg w-6"></div>
+      <span>Search</span>
+    </li>
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <div class="far fa-compass text-lg w-6"></div>
+      <span>Explore</span>
+    </li>
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <div class="far fa-camera-movie text-lg w-6"></div>
+      <span>Reels</span>
+    </li>
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <div class="far fa-messages text-lg w-6"></div>
+      <span>Messages</span>
+    </li>
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <div class="far fa-heart text-lg w-6"></div>
+      <span>Notifications</span>
+    </li>
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <%= render Modal::Component.new(title: "Create a new post", open_text: "Create") do |component| %>
+        <%= component.with_button do %>
+          <button class="w-full space-x-2 flex justify-start items-center" data-action="click->modal#open">
+            <div class="far fa-square-plus text-lg w-6"></div>
+            <span>Create</span>
+          </button>
+        <% end %>
+        <% component.with_body do %>
+          <%= form_with model: Post.new, method: :post, class: "mt-4" do |form| %>
+            <%= form.file_field :image, class: "w-full mb-4" %>
+            <%= form.text_area :caption, placeholder: "What's on your mind?", rows: 4, class: "w-full border border-gray-300 rounded-md" %>
+            <%= form.submit "Create", class: "w-full bg-blue-500 text-white py-2 rounded-md" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </li>
+    <li class="flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-3 px-4 rounded-md">
+      <div class="far fa-user text-lg w-6"></div>
+      <span>Profile</span>
+    </li>
+  </ul>
+  <div class="w-full overflow-hidden pb-4">
+    <ul class="absolute bottom-3 right-2 left-0 flex flex-col space-y-2 max-w-full">
+      <li class="w-full flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-2 px-4 rounded-md">
+        <div class="relative">
+          <i class="fa-brands fa-threads text-lg w-6"></i>
+          <span class="w-4 h-4 bg-red-500 text-white text-xs font-bold flex items-center justify-center rounded-full absolute -right-1 -top-1">9</span>
+        </div>
+        <span>Spaces</span>
+      </li>
+      <li class="w-full flex items-center space-x-2 cursor-pointer hover:bg-gray-100 py-2 px-4 rounded-md">
+        <div class="fa-solid fa-bars text-lg w-6"></div>
+        <span>More</span>
+      </li>
+    </ul>
+  </div>
+</nav>
