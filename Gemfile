@@ -58,6 +58,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
+gem "aws-sdk-s3", require: false
+gem "aws-sdk-cloudfront", require: false
 gem "devise", "~> 4.9"
 gem "view_component", "~> 3.15"
 gem "view_component-contrib", "~> 0.2.3"

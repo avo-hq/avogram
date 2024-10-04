@@ -1,10 +1,7 @@
-<div class="w-full h-screen flex justify-center">
-  <% content_for :title, "Posts" %>
+<% content_for :title, "Posts" %>
 
+<div class="w-full h-screen flex justify-center">
   <div id="posts" class="w-[620px] flex">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
     <% if @posts.any? %>
       <ul class="divide-y divide-slate-300 mx-16">
         <% @posts.each do |post| %>
@@ -17,15 +14,17 @@
   </div>
 
   <div class="ml-32 w-[320px] mt-8">
-    <div class="flex space-x-3">
-      <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden">
-        <%= image_tag "https://i.pravatar.cc/100?img=12", class: "w-full h-full object-cover" %>
+    <% if user_signed_in? %>
+      <div class="flex space-x-3">
+        <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden">
+          <%= image_tag "https://unavatar.io/github/#{current_user.username}", class: "w-full h-full object-cover" %>
+        </div>
+        <div class="flex flex-col justify-center">
+          <span class="text-sm font-medium leading-tight"><%= current_user.username %></span>
+          <span class="text-sm text-gray-500 leading-tight"><%= current_user.full_name %></span>
+        </div>
       </div>
-      <div class="flex flex-col justify-center">
-        <span class="text-sm font-medium leading-tight">jdoe</span>
-        <span class="text-sm text-gray-500 leading-tight">John Doe</span>
-      </div>
-    </div>
+    <% end %>
 
     <div class="mt-6">
       <h5 class="text-sm font-medium text-gray-500">Suggested for you</h5>
