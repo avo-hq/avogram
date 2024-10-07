@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         :rails_service_blob_proxy,
         model.signed_id(expires_in: expires_in),
         model.filename,
-        options.merge(host: Rails.application.credentials.dig(:aws, :s3_public, :active_storage_asset_host))
+        options.merge(host: ENV["CLOUDFRONT_URL"])
       )
     else
       signed_blob_id = model.blob.signed_id(expires_in: expires_in)
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
         signed_blob_id,
         variation_key,
         filename,
-        options.merge(host: Rails.application.credentials.dig(:aws, :s3_public, :active_storage_asset_host))
+        options.merge(host: ENV["CLOUDFRONT_URL"])
       )
     end
   end

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/laserlemon/figaro
+  revision: 5756dfde97b157343215bf740c9ac6efec4f95e7
+  specs:
+    figaro (1.2.0)
+      thor (>= 0.14.0, < 2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -126,8 +133,16 @@ GEM
       warden (~> 1.2.3)
     drb (2.2.1)
     erubi (1.13.0)
-    ffi (1.17.0)
+    ffi (1.17.0-aarch64-linux-gnu)
+    ffi (1.17.0-aarch64-linux-musl)
+    ffi (1.17.0-arm-linux-gnu)
+    ffi (1.17.0-arm-linux-musl)
     ffi (1.17.0-arm64-darwin)
+    ffi (1.17.0-x86-linux-gnu)
+    ffi (1.17.0-x86-linux-musl)
+    ffi (1.17.0-x86_64-darwin)
+    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0-x86_64-linux-musl)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -375,6 +390,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  figaro!
   image_processing (>= 1.2)
   importmap-rails
   jbuilder
