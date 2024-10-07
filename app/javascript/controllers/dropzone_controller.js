@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
-import { formatFileSize } from "../utils/file";
 import { DirectUpload } from "@rails/activestorage";
+
 export default class extends Controller {
   static targets = [
     "input",
@@ -129,7 +129,7 @@ export default class extends Controller {
   }
 
   _displayFileMetadata(file) {
-    this.fileInfoTarget.innerHTML = `${file.name} - ${formatFileSize(
+    this.fileInfoTarget.innerHTML = `${file.name} - ${this.formatFileSize(
       file.size
     )}`;
   }
@@ -144,5 +144,15 @@ export default class extends Controller {
 
   get thumbnailImage() {
     return this.previewTarget.querySelector("img");
+  }
+
+  formatFileSize(size) {
+    const units = ["B", "KB", "MB", "GB"];
+    let unitIndex = 0;
+    while (size >= 1024 && unitIndex < units.length - 1) {
+      size /= 1024;
+      unitIndex++;
+    }
+    return `${size.toFixed(2)} ${units[unitIndex]}`;
   }
 }
