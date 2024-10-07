@@ -1,2 +1,6 @@
-json.extract! post, :id, :caption, :created_at, :updated_at
-json.url post_url(post, format: :json)
+json.id post.id
+json.caption post.caption
+json.created_at post.created_at
+json.updated_at post.updated_at
+json.image_url rails_blob_url(post.image, host: request.base_url)
+json.url url_for(post)

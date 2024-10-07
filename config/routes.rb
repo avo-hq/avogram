@@ -11,23 +11,30 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   
-  direct :cdn_image do |blob|
-    # Preserve the behaviour of `rails_blob_url` inside these environments
-    # where S3 or the CDN might not be configured
-    if Rails.application.credentials.dig(:aws, :s3, :active_storage_asset_host) && blob&.key
-     File.join(Rails.application.credentials.dig(:aws, :s3, :active_storage_asset_host), blob.key)
+  direct :cdn_image do |model, options|
+    expires_in = options.delete(:expires_in) { ActiveStorage.urls_expire_in }
+  
+    if model.respond_to?(:signed_id)
+      route_for(
+        :rails_service_blob_proxy,
+        model.signed_id(expires_in: expires_in),
+        model.filename,
+        options.merge(host: Rails.application.credentials.dig(:aws, :s3_public, :active_storage_asset_host))
+      )
     else
-     route =
-        # ActiveStorage::VariantWithRecord was introduced in Rails 6.1
-       # Remove the second check if you're using an older version
-       if blob.is_a?(ActiveStorage::Variant) || blob.is_a?(ActiveStorage::VariantWithRecord)
-          :rails_representation
-       else
-          :rails_blob
-       end
-     route_for(route, blob)
+      signed_blob_id = model.blob.signed_id(expires_in: expires_in)
+      variation_key  = model.variation.key
+      filename       = model.blob.filename
+  
+      route_for(
+        :rails_blob_representation_proxy,
+        signed_blob_id,
+        variation_key,
+        filename,
+        options.merge(host: Rails.application.credentials.dig(:aws, :s3_public, :active_storage_asset_host))
+      )
     end
-    end
+  end
 
   # Defines the root path route ("/")
   root "posts#index"
