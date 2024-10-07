@@ -11,42 +11,46 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  direct :cdn_asset do |model|
-    if model.respond_to?(:signed_id) # We're dealing with an ActiveStorage::Blob
-      File.join(ENV["CLOUDFRONT_URL"], model.key)
+  direct :rails_public_blob do |blob|
+    # Preserve the behaviour of `rails_blob_url` inside these environments
+    # where S3 or the CDN might not be configured
+    if Rails.env.development? || Rails.env.test?
+      route = 
+        # ActiveStorage::VariantWithRecord was introduced in Rails 6.1
+        # Remove the second check if you're using an older version
+        if blob.is_a?(ActiveStorage::Variant) || blob.is_a?(ActiveStorage::VariantWithRecord)
+          :rails_representation
+        else
+         :rails_blob
+        end
+      route_for(route, blob)
     else
-      File.join(ENV["CLOUDFRONT_URL"], model.blob.key)
+      # Use an environment variable instead of hard-coding the CDN host
+      File.join(ENV.fetch("CDN_HOST"), blob.key)
     end
   end
-  
-  
+
   direct :cdn_image do |model, options|
     expires_in = options.delete(:expires_in) { ActiveStorage.urls_expire_in }
-
+  
     if model.respond_to?(:signed_id)
-      url_for(
-        Rails.application.routes.url_helpers.rails_service_blob_proxy_url(
-          model.signed_id(expires_in: expires_in),
-          model.filename,
-          host: ENV['CLOUDFRONT_HOST'],
-          protocol: 'https',
-          only_path: false
-        )
+      route_for(
+        :rails_service_blob_proxy,
+        model.signed_id(expires_in: expires_in),
+        model.filename,
+        options.merge(host: ENV['CLOUDFRONT_HOST'])
       )
     else
       signed_blob_id = model.blob.signed_id(expires_in: expires_in)
       variation_key  = model.variation.key
       filename       = model.blob.filename
-
-      url_for(
-        Rails.application.routes.url_helpers.rails_blob_representation_proxy_url(
-          signed_blob_id,
-          variation_key,
-          filename,
-          host: ENV['CLOUDFRONT_HOST'],
-          protocol: 'https',
-          only_path: false
-        )
+  
+      route_for(
+        :rails_blob_representation_proxy,
+        signed_blob_id,
+        variation_key,
+        filename,
+        options.merge(host: ENV['CLOUDFRONT_HOST'])
       )
     end
   end
