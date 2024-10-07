@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: avogram_production
-  username: avogram
-  password: <%= ENV["AVOGRAM_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
