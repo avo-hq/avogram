@@ -10,6 +10,15 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+
+  direct :cdn_asset do |model|
+    if model.respond_to?(:signed_id) # We're dealing with an ActiveStorage::Blob
+      File.join(ENV["CLOUDFRONT_URL"], model.key)
+    else
+      File.join(ENV["CLOUDFRONT_URL"], model.blob.key)
+    end
+  end
+  
   
   direct :cdn_image do |model, options|
     expires_in = options.delete(:expires_in) { ActiveStorage.urls_expire_in }
