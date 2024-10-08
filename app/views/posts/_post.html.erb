@@ -17,7 +17,7 @@
     <i class="far fa-bookmark text-xl"></i>
   </div>
   <p class="text-slate-700 text-sm mt-2">
-    <span class="font-semibold text-black"><%= post.user.username %></span>
+    <span class="font-semibold text-black"><%= link_to post.user.username, post_path(post) %></span>
     <span><%= post.caption %></span>
   </p>
   <p class="text-sm cursor-pointer text-gray-400 mt-3">Leave a comment</p>
