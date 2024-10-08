@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="aspect-square bg-gray-100 relative overflow-hidden rounded-md border border-gray-300 z-0">
-    <%= image_tag cdn_image_url(post.image), class: "w-full h-full object-cover" %>
+    <%= image_tag rails_public_blob_url(post.image), class: "w-full h-full object-cover" %>
   </div>
   <div class="flex items-center space-x-4 mt-3">
     <i class="far fa-heart text-xl"></i>
