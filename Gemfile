@@ -68,4 +68,5 @@ gem "view_component-contrib", "~> 0.2.3"
 gem "image_processing", ">= 1.2"
 gem "ruby-vips"
 
+gem 'friendly_id', '~> 5.5.0'
 gem "figaro", git: "https://github.com/laserlemon/figaro"
