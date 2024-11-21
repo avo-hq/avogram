@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.1"
+gem "rails", "~> 7.2.2"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
@@ -62,7 +62,7 @@ end
 gem "aws-sdk-s3", require: false
 gem "aws-sdk-cloudfront", require: false
 gem "devise", "~> 4.9"
-gem "view_component", "~> 3.17"
+gem "view_component", "~> 3.20"
 gem "view_component-contrib", "~> 0.2.3"
 
 gem "image_processing", ">= 1.2"
