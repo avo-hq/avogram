@@ -171,7 +171,7 @@ GEM
     jmespath (1.6.2)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
-    logger (1.6.2)
+    logger (1.6.4)
     loofah (2.23.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -302,7 +302,7 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.3.2)
-    securerandom (0.4.0)
+    securerandom (0.4.1)
     selenium-webdriver (4.27.0)
       base64 (~> 0.2)
       logger (~> 1.4)
@@ -347,7 +347,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     useragent (0.16.11)
-    view_component (3.20.0)
+    view_component (3.21.0)
       activesupport (>= 5.2.0, < 8.1)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -410,7 +410,7 @@ DEPENDENCIES
   tailwindcss-rails
   turbo-rails
   tzinfo-data
-  view_component (~> 3.20)
+  view_component (~> 3.21)
   view_component-contrib (~> 0.2.3)
   web-console
 
