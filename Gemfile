@@ -62,7 +62,7 @@ end
 gem "aws-sdk-s3", require: false
 gem "aws-sdk-cloudfront", require: false
 gem "devise", "~> 4.9"
-gem "view_component", "~> 3.23"
+gem "view_component", "~> 4.0"
 gem "view_component-contrib", "~> 0.2.4"
 
 gem "image_processing", ">= 1.2"
